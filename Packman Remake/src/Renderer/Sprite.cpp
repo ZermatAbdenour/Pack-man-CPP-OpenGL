@@ -1,4 +1,6 @@
 #include "Sprite.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include <Stb/stb_image.h>
 
 Sprite::Sprite()
 {

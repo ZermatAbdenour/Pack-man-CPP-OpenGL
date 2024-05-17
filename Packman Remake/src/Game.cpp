@@ -8,6 +8,9 @@ int Game::WindowHeight = 600;
 Game::Game()
 {
     InitGameWindow();
+    
+    //Create a Game Renderer
+    GameRenderer = new Renderer();
 }
 
 void Game::InitGameWindow()
@@ -46,8 +49,9 @@ void Game::Run()
 {
     while (IsRunning())
     {
-        glClearColor(0.5f, 1, 0.6f, 1);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GameRenderer->Clear();
+        Sprite sprite;
+        GameRenderer->RenderSprite(sprite);
 
         glfwSwapBuffers(Window);
         glfwPollEvents();

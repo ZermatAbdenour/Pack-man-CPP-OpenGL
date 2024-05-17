@@ -3,6 +3,7 @@
 class Renderer {
 public:
 	Renderer();
+	void Clear();
 	void RenderSprite(Sprite sprite);
 private:
 	unsigned int m_quadFBO, m_quadEBO, m_quadVAO,shaderID;

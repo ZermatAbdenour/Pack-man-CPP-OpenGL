@@ -2,8 +2,10 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
-const char* ReadShaderFromFile(const char* Path) {
+std::string ReadShaderFromFile(std::string Path) {
     std::string fileContent;
 
     std::ifstream file;
@@ -24,6 +26,9 @@ const char* ReadShaderFromFile(const char* Path) {
     {
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
+    return fileContent;
+}
 
-    return fileContent.c_str();
+std::string GetShaderPath(std::string shaderName) {
+    return (fs::current_path() / fs::path("src/Renderer/Shaders/" + shaderName)).string();
 }
