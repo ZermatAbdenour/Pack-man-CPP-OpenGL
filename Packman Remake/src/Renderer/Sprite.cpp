@@ -8,26 +8,34 @@ Sprite::Sprite()
 	Renderer::Instance->AddSprite(this);
 }
 
-Sprite* Sprite::LoadSpriteFromPath(char* Path){
+Sprite* Sprite::LoadSpriteFromPath(std::string Path){
 	Sprite* sprite = new Sprite();
 
 	//Load the Image using STBImage
+	stbi_set_flip_vertically_on_load(true);
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(Path, &width, &height, &nrChannels, 0);
-
-	//Setting The Warping/Filtering options
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+	unsigned char* data = stbi_load(Path.c_str(), &width, &height, &nrChannels, 0);
 	if (data) {
 		//Generate the Texture and set the texture data
 		glGenTextures(1, &sprite->m_textureID);
 		glBindTexture(GL_TEXTURE_2D, sprite->m_textureID);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(sprite->m_textureID);
+		//Setting The Warping/Filtering options
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		
+		GLenum format = 0;
+		if (nrChannels == 1)
+			format = GL_RED;
+		else if (nrChannels == 3)
+			format = GL_RGB;
+		else if (nrChannels == 4)
+			format = GL_RGBA;
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		//glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else {
 		std::cout << "Error::Failed to load Image From Path" << std::endl;
@@ -39,5 +47,7 @@ Sprite* Sprite::LoadSpriteFromPath(char* Path){
 
 void Sprite::Use()
 {
+	glActiveTexture(GL_TEXTURE0);
+
 	glBindTexture(GL_TEXTURE_2D,m_textureID);
 }

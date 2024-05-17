@@ -1,6 +1,8 @@
 #pragma once
 #include "Sprite.h"
 #include <vector>
+#include "../Util.h"
+
 class Renderer {
 public:
 	static Renderer* Instance;

@@ -1,7 +1,5 @@
 #include "Game.h"
 
-
-
 int Game::WindowWidth = 800;
 int Game::WindowHeight = 600;
 
@@ -11,7 +9,7 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
-    Sprite* sprite = new Sprite();
+   Sprite* sprite = Sprite::LoadSpriteFromPath(GetImagePath("maze.png"));
 }
 
 void Game::InitGameWindow()

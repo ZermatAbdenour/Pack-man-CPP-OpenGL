@@ -7,6 +7,6 @@ private:
 	unsigned int m_textureID;
 public:
 	Sprite();
-	static Sprite* LoadSpriteFromPath(char* Path);
+	static Sprite* LoadSpriteFromPath(std::string Path);
 	void Use();
 };

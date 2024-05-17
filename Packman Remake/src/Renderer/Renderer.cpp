@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "../Util.h"
+
 
 Renderer* Renderer::Instance = nullptr;
 
@@ -43,7 +43,7 @@ Renderer::Renderer()
 	glEnableVertexAttribArray(0);
 	
 	//Texture Coord
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)2);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2* sizeof(float)));
 	glEnableVertexAttribArray(1);
 
 	//Create and compile the vertex shader
@@ -119,6 +119,9 @@ void Renderer::RenderSprite(Sprite* sprite)
 {
 	//Use Sprite Shader
 	glUseProgram(shaderID);
+	glUniform1i(glGetUniformLocation(shaderID, "u_texture"), 0);
+	//Use Sprite Texture
+	sprite->Use();
 	//RenderSprite
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
 }
