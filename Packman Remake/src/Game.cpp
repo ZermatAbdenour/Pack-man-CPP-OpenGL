@@ -9,15 +9,17 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
-   Sprite* sprite = Sprite::LoadSpriteFromPath(GetImagePath("maze.png"));
+    Sprite* sprite = Sprite::LoadSpriteFromPath(GetImagePath("maze.png"));
+    SpriteSheet* spriteSheet = new SpriteSheet(sprite, 5, 10);
+    AnimatedSprite* animatedSprite = new AnimatedSprite(spriteSheet);
 }
 
 void Game::InitGameWindow()
 {
     //Init GLFW
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     Window = glfwCreateWindow(WindowWidth, WindowHeight, "Pacman", NULL, NULL);

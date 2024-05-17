@@ -1,6 +1,5 @@
 #include "Renderer.h"
 
-
 Renderer* Renderer::Instance = nullptr;
 
 float Renderer::s_quadVerticies[] = {
@@ -19,6 +18,11 @@ int Renderer::s_quadIndices[] = {
 void Renderer::AddSprite(Sprite* sprite)
 {
 	m_sprites.push_back(sprite);
+}
+
+void Renderer::AddAnimatedSprite(AnimatedSprite* animatedSprite)
+{
+	m_animatedSprite.push_back(animatedSprite);
 }
 
 Renderer::Renderer()
@@ -48,7 +52,7 @@ Renderer::Renderer()
 
 	//Create and compile the vertex shader
 	unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	std::string vertexShaderContent = ReadShaderFromFile(GetShaderPath("VertexShader.vert"));
+	std::string vertexShaderContent = ReadShaderFromFile(GetShaderPath("AnimatedSprite.vert"));
 	const char* vertexShaderCode = vertexShaderContent.c_str();
 	glShaderSource(vertexShaderID, 1,&vertexShaderCode, NULL);
 	glCompileShader(vertexShaderID);
@@ -65,7 +69,7 @@ Renderer::Renderer()
 
 	//Create and Compile fragment shader
 	unsigned int fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-	std::string fragmentShaderContent = ReadShaderFromFile(GetShaderPath("FragmentShader.frag"));
+	std::string fragmentShaderContent = ReadShaderFromFile(GetShaderPath("AnimatedSprite.frag"));
 	const char* fragmentShaderCode = fragmentShaderContent.c_str();
 	glShaderSource(fragmentShaderID, 1, &fragmentShaderCode, NULL);
 	glCompileShader(fragmentShaderID);
@@ -105,13 +109,21 @@ void Renderer::Clear()
 void Renderer::Render()
 {
 	//Render Game Sprites
-	RenderSprites();
+	//RenderSprites();
+	//Render Animated Sprites
+	RenderAnimatedSprites();
 }
 
 void Renderer::RenderSprites()
 {
 	for (Sprite* sprite : m_sprites) {
 		RenderSprite(sprite);
+	}
+}
+
+void Renderer::RenderAnimatedSprites() {
+	for (AnimatedSprite* asprite : m_animatedSprite) {
+		RenderAnimatedSprite(asprite);
 	}
 }
 
@@ -122,6 +134,22 @@ void Renderer::RenderSprite(Sprite* sprite)
 	glUniform1i(glGetUniformLocation(shaderID, "u_texture"), 0);
 	//Use Sprite Texture
 	sprite->Use();
-	//RenderSprite
+	//Render Sprite
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
+}
+
+void Renderer::RenderAnimatedSprite(AnimatedSprite* animatedSprite)
+{
+	//Use Sprite Shader
+	glUseProgram(shaderID);
+	glUniform1i(glGetUniformLocation(shaderID, "u_texture"), 0);
+	glUniform1f(glGetUniformLocation(shaderID, "u_spriteColumns"), animatedSprite->AnimationSpriteSheet->SheetColumns);
+
+	std::cout << animatedSprite->AnimationSpriteSheet->SheetColumns << std::endl;
+	glUniform1f(glGetUniformLocation(shaderID, "u_spriteRows"), animatedSprite->AnimationSpriteSheet->SheetRows);
+	glUniform1ui(glGetUniformLocation(shaderID, "u_spriteIndex"), animatedSprite->SpriteIndex);
+	//Use Sprite Texture
+	animatedSprite->AnimationSpriteSheet->SheetSprite->Use();
+	//Render Sprite
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
