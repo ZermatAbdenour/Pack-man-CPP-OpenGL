@@ -1,10 +1,11 @@
 #include "Sprite.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <Stb/stb_image.h>
-
+#include "Renderer.h"
 Sprite::Sprite()
 {
-
+	//add sprite to the renderer
+	Renderer::Instance->AddSprite(this);
 }
 
 Sprite* Sprite::LoadSpriteFromPath(char* Path){
@@ -39,5 +40,4 @@ Sprite* Sprite::LoadSpriteFromPath(char* Path){
 void Sprite::Use()
 {
 	glBindTexture(GL_TEXTURE_2D,m_textureID);
-
 }

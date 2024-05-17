@@ -1,13 +1,14 @@
 #include "Renderer.h"
 #include "../Util.h"
 
-
+Renderer* Renderer::Instance = nullptr;
 
 float Renderer::s_quadVerticies[] = {
-	 0.5f,  0.5f,  // top right
-	 0.5f, -0.5f,  // bottom right
-	-0.5f, -0.5f,  // bottom left
-	-0.5f,  0.5f   // top left 
+	//Position     //Texture Coord
+	 0.5f,  0.5f,  1.0f, 1.0f,  // top right
+	 0.5f, -0.5f,  1.0f,0.0f,   // bottom right
+	-0.5f, -0.5f,  0.0f,0.0f,   // bottom left
+	-0.5f,  0.5f,  0.0f,1.0f    // top left 
 };
 
 int Renderer::s_quadIndices[] = {
@@ -15,8 +16,16 @@ int Renderer::s_quadIndices[] = {
 	1, 2, 3    // second triangle
 };
 
+void Renderer::AddSprite(Sprite* sprite)
+{
+	m_sprites.push_back(sprite);
+}
+
 Renderer::Renderer()
 {
+	//Set Renderer Instance
+	Instance = this;
+
 	//Create Quad Buffers
 	glGenVertexArrays(1, &m_quadVAO);
 	glBindVertexArray(m_quadVAO);
@@ -28,9 +37,14 @@ Renderer::Renderer()
 	glGenBuffers(1, &m_quadEBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_quadEBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(s_quadIndices), s_quadIndices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+	
+	//Position
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	
+	//Texture Coord
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)2);
+	glEnableVertexAttribArray(1);
 
 	//Create and compile the vertex shader
 	unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -88,11 +102,23 @@ void Renderer::Clear()
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderSprite(Sprite sprite)
+void Renderer::Render()
+{
+	//Render Game Sprites
+	RenderSprites();
+}
+
+void Renderer::RenderSprites()
+{
+	for (Sprite* sprite : m_sprites) {
+		RenderSprite(sprite);
+	}
+}
+
+void Renderer::RenderSprite(Sprite* sprite)
 {
 	//Use Sprite Shader
 	glUseProgram(shaderID);
-	glBindVertexArray(m_quadVAO);
 	//RenderSprite
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
 }

@@ -11,6 +11,7 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
+    Sprite* sprite = new Sprite();
 }
 
 void Game::InitGameWindow()
@@ -50,8 +51,8 @@ void Game::Run()
     while (IsRunning())
     {
         GameRenderer->Clear();
-        Sprite sprite;
-        GameRenderer->RenderSprite(sprite);
+
+        GameRenderer->Render();
 
         glfwSwapBuffers(Window);
         glfwPollEvents();
