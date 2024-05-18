@@ -1,8 +1,8 @@
 #pragma once
-#include "Sprite.h"
-#include "AnimatedSprite.h"
 #include <vector>
 #include "../Util.h"
+#include "Sprite.h"
+#include "AnimatedSprite.h"
 
 class Renderer {
 public:

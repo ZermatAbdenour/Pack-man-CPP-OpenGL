@@ -150,14 +150,15 @@
     <ClCompile Include="src\Renderer\AnimatedSprite.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\Sprite.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Renderer\AnimatedSprite.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Sprite.h" />
+    <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

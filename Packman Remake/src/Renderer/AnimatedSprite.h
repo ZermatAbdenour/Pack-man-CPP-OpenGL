@@ -1,13 +1,13 @@
 #pragma once
-#include "Sprite.h"
+#include "Texture.h"
 class SpriteSheet {
 public:
-	Sprite* SheetSprite;
+	Texture* SheetSprite;
 	int SheetRows;
 	int SheetColumns;
 public:
 	SpriteSheet() = delete;
-	SpriteSheet(Sprite* sprite, int sheetRows, int sheetColumns);
+	SpriteSheet(Texture* sprite, int sheetRows, int sheetColumns);
 };
 
 class AnimatedSprite {

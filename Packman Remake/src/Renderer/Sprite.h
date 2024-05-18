@@ -1,12 +1,10 @@
 #pragma once
-#include <glad/glad.h>
-#include <iostream>
+#include "Texture.h"
 
 class Sprite {
-private:
-	unsigned int m_textureID;
 public:
+	Texture* SourceImage;
+public:	
 	Sprite();
-	static Sprite* LoadSpriteFromPath(std::string Path);
-	void Use();
+	Sprite(Texture* sourceImage);
 };

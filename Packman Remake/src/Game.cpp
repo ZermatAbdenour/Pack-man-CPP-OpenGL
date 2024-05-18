@@ -9,9 +9,8 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
-    Sprite* sprite = Sprite::LoadSpriteFromPath(GetImagePath("maze.png"));
-    SpriteSheet* spriteSheet = new SpriteSheet(sprite, 5, 10);
-    AnimatedSprite* animatedSprite = new AnimatedSprite(spriteSheet);
+    Texture* sprite = Texture::LoadTextureFromPath(GetImagePath("maze.png"));
+    Sprite* spriteSheet = new Sprite(sprite);
 }
 
 void Game::InitGameWindow()
