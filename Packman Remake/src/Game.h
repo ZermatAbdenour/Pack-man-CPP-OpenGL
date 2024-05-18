@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Renderer/Renderer.h"
+#include "Levels/Level.h"
+
 
 class Game {
 public:
@@ -10,9 +12,11 @@ public:
 	static int WindowHeight;
 	GLFWwindow* Window;
 	Renderer* GameRenderer;
+	Level* CurrentLevel;
 public:
 	Game();
 	void InitGameWindow();
+	void LoadLevel(Level* level);
 	void Run();
 	void Close();
 	bool IsRunning();

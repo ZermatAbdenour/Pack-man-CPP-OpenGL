@@ -15,15 +15,6 @@ int Renderer::s_quadIndices[] = {
 	1, 2, 3    // second triangle
 };
 
-void Renderer::AddSprite(Sprite* sprite)
-{
-	m_sprites.push_back(sprite);
-}
-
-void Renderer::AddAnimatedSprite(AnimatedSprite* animatedSprite)
-{
-	m_animatedSprite.push_back(animatedSprite);
-}
 
 Renderer::Renderer()
 {
@@ -62,12 +53,28 @@ void Renderer::Clear()
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void Renderer::CleanAll()
+{
+	m_sprites.clear();
+	m_animatedSprite.clear();
+}
+
 void Renderer::Render()
 {
 	//Render Game Sprites
 	//RenderSprites();
 	//Render Animated Sprites
 	RenderAnimatedSprites();
+}
+
+void Renderer::AddSprite(Sprite* sprite)
+{
+	m_sprites.push_back(sprite);
+}
+
+void Renderer::AddAnimatedSprite(AnimatedSprite* animatedSprite)
+{
+	m_animatedSprite.push_back(animatedSprite);
 }
 
 void Renderer::RenderSprites()

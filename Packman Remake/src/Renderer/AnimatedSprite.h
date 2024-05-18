@@ -1,16 +1,9 @@
 #pragma once
 #include "Texture.h"
-class SpriteSheet {
-public:
-	Texture* SourceImage;
-	int SheetRows;
-	int SheetColumns;
-public:
-	SpriteSheet() = delete;
-	SpriteSheet(Texture* sprite, int sheetRows, int sheetColumns);
-};
+#include "SpriteSheet.h"
+#include "../Entity/Entity.h"
 
-class AnimatedSprite {
+class AnimatedSprite : Entity{
 public:
 	SpriteSheet* AnimationSpriteSheet;
 	int SpriteIndex;

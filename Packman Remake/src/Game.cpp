@@ -9,9 +9,6 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
-    Texture* sprite = Texture::LoadTextureFromPath(GetImagePath("maze.png"));
-    SpriteSheet* spriteSheet = new SpriteSheet(sprite, 5, 10);
-    AnimatedSprite* animatedSprite = new AnimatedSprite(spriteSheet);
 }
 
 void Game::InitGameWindow()
@@ -46,13 +43,24 @@ void Game::InitGameWindow()
 
 }
 
+void Game::LoadLevel(Level* level) {
+    Renderer::Instance->CleanAll();
+    level->Load();
+
+    CurrentLevel = level;
+}
+
 void Game::Run()
 {
     while (IsRunning())
     {
+        //Clear previous frame
         GameRenderer->Clear();
-
+        //Render current frame
         GameRenderer->Render();
+        //Update current level
+        if(CurrentLevel != nullptr)
+            CurrentLevel->Update();
 
         glfwSwapBuffers(Window);
         glfwPollEvents();
