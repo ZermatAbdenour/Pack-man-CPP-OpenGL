@@ -3,4 +3,5 @@
 class Entity {
 public:
 	glm::vec2 Position;
+
 };

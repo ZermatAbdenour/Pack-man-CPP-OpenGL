@@ -40,11 +40,6 @@ Renderer::Renderer()
 	//Texture Coord
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2* sizeof(float)));
 	glEnableVertexAttribArray(1);
-
-	//Create the Sprite Shader
-	SpriteShader = new Shader("Sprite.vert", "Sprite.frag");
-	//Create the Animated Sprite Shader
-	AnimatedSpriteShader = new Shader("AnimatedSprite.vert", "AnimatedSprite.frag");
 }
 
 void Renderer::Clear()
@@ -55,63 +50,16 @@ void Renderer::Clear()
 
 void Renderer::CleanAll()
 {
-	m_sprites.clear();
-	m_animatedSprite.clear();
+	m_renderables.clear();
 }
 
 void Renderer::Render()
 {
-	//Render Game Sprites
-	//RenderSprites();
-	//Render Animated Sprites
-	RenderAnimatedSprites();
-}
-
-void Renderer::AddSprite(Sprite* sprite)
-{
-	m_sprites.push_back(sprite);
-}
-
-void Renderer::AddAnimatedSprite(AnimatedSprite* animatedSprite)
-{
-	m_animatedSprite.push_back(animatedSprite);
-}
-
-void Renderer::RenderSprites()
-{
-	SpriteShader->Use();
-	for (Sprite* sprite : m_sprites) {
-		RenderSprite(sprite);
+	for (IRenderable* renderable : m_renderables) {
+		renderable->Render();
 	}
 }
 
-void Renderer::RenderAnimatedSprites() {
-	AnimatedSpriteShader->Use();
-	for (AnimatedSprite* asprite : m_animatedSprite) {
-		RenderAnimatedSprite(asprite);
-	}
-}
-
-void Renderer::RenderSprite(Sprite* sprite)
-{
-	//Use Sprite Shader
-	glUniform1i(glGetUniformLocation(SpriteShader->ID, "u_texture"), 0);
-	//Use Sprite Texture
-	sprite->SourceImage->Use();
-	//Render Sprite
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
-}
-
-void Renderer::RenderAnimatedSprite(AnimatedSprite* animatedSprite)
-{
-	//Use Sprite Shader
-	glUniform1i(glGetUniformLocation(AnimatedSpriteShader->ID, "u_texture"), 0);
-	glUniform1f(glGetUniformLocation(AnimatedSpriteShader->ID, "u_spriteColumns"), animatedSprite->AnimationSpriteSheet->SheetColumns);
-
-	glUniform1f(glGetUniformLocation(AnimatedSpriteShader->ID, "u_spriteRows"), animatedSprite->AnimationSpriteSheet->SheetRows);
-	glUniform1ui(glGetUniformLocation(AnimatedSpriteShader->ID, "u_spriteIndex"), animatedSprite->SpriteIndex);
-	//Use Sprite Texture
-	animatedSprite->AnimationSpriteSheet->SourceImage->Use();
-	//Render Sprite
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+void Renderer::AddRenderable(IRenderable* renderable) {
+	m_renderables.push_back(renderable);
 }

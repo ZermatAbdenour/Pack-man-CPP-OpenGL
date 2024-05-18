@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\Glad\glad.c" />
+    <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Level.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="src\Levels\GameLevel.h" />
     <ClInclude Include="src\Levels\Level.h" />
     <ClInclude Include="src\Renderer\AnimatedSprite.h" />
+    <ClInclude Include="src\Renderer\IRanderable.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Sprite.h" />
