@@ -2,7 +2,7 @@
 #include "Texture.h"
 class SpriteSheet {
 public:
-	Texture* SheetSprite;
+	Texture* SourceImage;
 	int SheetRows;
 	int SheetColumns;
 public:

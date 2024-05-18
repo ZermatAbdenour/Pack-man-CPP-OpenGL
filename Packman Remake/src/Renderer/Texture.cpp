@@ -7,16 +7,16 @@ Texture::Texture()
 }
 
 Texture* Texture::LoadTextureFromPath(std::string Path){
-	Texture* sprite = new Texture();
+	Texture* texture = new Texture();
 
 	//Load the Image using STBImage
 	stbi_set_flip_vertically_on_load(true);
-	int width, height, nrChannels;
-	unsigned char* data = stbi_load(Path.c_str(), &width, &height, &nrChannels, 0);
+	int nrChannels;
+	unsigned char* data = stbi_load(Path.c_str(), &texture->Width, &texture->Height, &nrChannels, 0);
 	if (data) {
 		//Generate the Texture and set the texture data
-		glGenTextures(1, &sprite->m_textureID);
-		glBindTexture(GL_TEXTURE_2D, sprite->m_textureID);
+		glGenTextures(1, &texture->m_textureID);
+		glBindTexture(GL_TEXTURE_2D, texture->m_textureID);
 
 		//Setting The Warping/Filtering options
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -32,7 +32,7 @@ Texture* Texture::LoadTextureFromPath(std::string Path){
 			format = GL_RGB;
 		else if (nrChannels == 4)
 			format = GL_RGBA;
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, texture->Width, texture->Height, 0, format, GL_UNSIGNED_BYTE, data);
 		//glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else {
@@ -40,7 +40,7 @@ Texture* Texture::LoadTextureFromPath(std::string Path){
 	}
 	stbi_image_free(data);
 
-	return sprite;
+	return texture;
 }
 
 void Texture::Use()

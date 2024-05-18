@@ -5,6 +5,7 @@
 class Texture {
 private:
 	unsigned int m_textureID;
+	int Width, Height;
 public:
 	Texture();
 	static Texture* LoadTextureFromPath(std::string Path);

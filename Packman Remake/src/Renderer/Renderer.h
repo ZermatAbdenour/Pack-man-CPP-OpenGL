@@ -3,6 +3,7 @@
 #include "../Util.h"
 #include "Sprite.h"
 #include "AnimatedSprite.h"
+#include "Shader.h"
 
 class Renderer {
 public:
@@ -10,9 +11,11 @@ public:
 	void AddSprite(Sprite* sprite);
 	void AddAnimatedSprite(AnimatedSprite* animatedSprite);
 private:
-	unsigned int m_quadFBO, m_quadEBO, m_quadVAO, shaderID;
+	unsigned int m_quadFBO, m_quadEBO, m_quadVAO;
 	static float s_quadVerticies[];
 	static int s_quadIndices[];
+	Shader* SpriteShader;
+	Shader* AnimatedSpriteShader;
 
 	std::vector<Sprite*> m_sprites;
 	std::vector<AnimatedSprite*> m_animatedSprite;
