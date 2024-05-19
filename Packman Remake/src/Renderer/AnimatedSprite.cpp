@@ -4,10 +4,17 @@
 
 AnimatedSprite::AnimatedSprite(SpriteSheet* spriteSheet) :AnimationSpriteSheet(spriteSheet), SpriteIndex(0) {
 	Renderer::Instance->AddRenderable(this);
+	AnimationTimer = Time::Timer(FrameTime);
 }
 
 void AnimatedSprite::Render()
 {
+	if (AnimationTimer.IsEnded())
+	{
+		SpriteIndex++;
+		AnimationTimer.Reset();
+	}
+
 	//Use Sprite Shader
 	AnimatedSpriteShader->Use();
 	glUniform1i(glGetUniformLocation(AnimatedSpriteShader->ID, "u_texture"), 0);

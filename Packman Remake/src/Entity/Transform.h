@@ -1,7 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
-class Entity {
+class Transform {
 public:
 	glm::vec2 Position;
-
 };

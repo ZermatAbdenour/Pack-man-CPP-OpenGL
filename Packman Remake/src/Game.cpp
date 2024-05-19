@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Engine/Time.h"
 
 int Game::WindowWidth = 800;
 int Game::WindowHeight = 600;
@@ -54,6 +55,7 @@ void Game::Run()
 {
     while (IsRunning())
     {
+        Time::StartFrame();
         //Clear previous frame
         GameRenderer->Clear();
         //Render current frame
@@ -62,8 +64,10 @@ void Game::Run()
         if(CurrentLevel != nullptr)
             CurrentLevel->Update();
 
+        Time::EndFrame();
         glfwSwapBuffers(Window);
         glfwPollEvents();
+
     }
 
     Close();

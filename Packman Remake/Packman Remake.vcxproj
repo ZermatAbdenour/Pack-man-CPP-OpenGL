@@ -145,7 +145,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\Glad\glad.c" />
-    <ClCompile Include="src\Entity\Entity.cpp" />
+    <ClCompile Include="src\Engine\Time.cpp" />
+    <ClCompile Include="src\Entity\Tansform.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Level.cpp" />
@@ -159,7 +160,8 @@
     <ClCompile Include="src\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\Engine\Time.h" />
+    <ClInclude Include="src\Entity\Transform.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Levels\GameLevel.h" />
     <ClInclude Include="src\Levels\Level.h" />
