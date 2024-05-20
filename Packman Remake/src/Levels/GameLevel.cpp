@@ -8,7 +8,7 @@ void GameLevel::Load()
 {
     Texture* sprite = Texture::LoadTextureFromPath(GetImagePath("maze.png"));
     SpriteSheet* spriteSheet = new SpriteSheet(sprite, 10, 10);
-    AnimatedSprite* animatedSprite = new AnimatedSprite(spriteSheet);
+    Sprite* animatedSprite = new Sprite(sprite);
 }
 
 void GameLevel::Update()

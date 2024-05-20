@@ -10,6 +10,8 @@ Game::Game()
     
     //Create a Game Renderer
     GameRenderer = new Renderer();
+    GameRenderer->ScreenWidth = WindowWidth;
+    GameRenderer->ScreenHeight = WindowHeight;
 }
 
 void Game::InitGameWindow()
@@ -79,6 +81,9 @@ void Game::Close() {
 void Game::FrameBufferSizeCallBack(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+    
+    Renderer::Instance->ScreenWidth = width;
+    Renderer::Instance->ScreenHeight = height;
 }
 
 bool Game::IsRunning()

@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClCompile Include="..\Dependencies\Glad\glad.c" />
     <ClCompile Include="src\Engine\Time.cpp" />
-    <ClCompile Include="src\Entity\Tansform.cpp" />
+    <ClCompile Include="src\Entity\Transform.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Levels\GameLevel.cpp" />
     <ClCompile Include="src\Levels\Level.cpp" />

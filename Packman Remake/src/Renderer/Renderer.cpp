@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include <glm/gtc/type_ptr.hpp>
 
 Renderer* Renderer::Instance = nullptr;
 
@@ -62,4 +63,15 @@ void Renderer::Render()
 
 void Renderer::AddRenderable(IRenderable* renderable) {
 	m_renderables.push_back(renderable);
+}
+
+glm::mat4 Renderer::GetProjectionMartrix()
+{
+	float aspectRatio = (float)ScreenWidth / ScreenHeight;
+	float orthoLeft = -aspectRatio;
+	float orthoRight = aspectRatio;
+	float orthoBottom = -1.0f;
+	float orthoTop = 1.0f;
+
+	return glm::ortho(orthoLeft, orthoRight, orthoBottom, orthoTop, 0.0f, 1.0f);
 }

@@ -9,9 +9,16 @@ AnimatedSprite::AnimatedSprite(SpriteSheet* spriteSheet) :AnimationSpriteSheet(s
 
 void AnimatedSprite::Render()
 {
+	//Update Animation Frame
 	if (AnimationTimer.IsEnded())
 	{
-		SpriteIndex++;
+		int spritesCount = AnimationSpriteSheet->SheetColumns * AnimationSpriteSheet->SheetRows;
+		if (Loop) {
+			SpriteIndex = SpriteIndex >= spritesCount-1 ? 0 : SpriteIndex + 1;
+		}
+		else {
+			SpriteIndex = SpriteIndex >= spritesCount-1 ? spritesCount - 1 : SpriteIndex + 1;
+		}
 		AnimationTimer.Reset();
 	}
 
@@ -22,6 +29,10 @@ void AnimatedSprite::Render()
 
 	glUniform1f(glGetUniformLocation(AnimatedSpriteShader->ID, "u_spriteRows"), AnimationSpriteSheet->SheetRows);
 	glUniform1ui(glGetUniformLocation(AnimatedSpriteShader->ID, "u_spriteIndex"),SpriteIndex);
+	//update Transformation Matrices
+	AnimatedSpriteShader->SetMat4("u_projection", Renderer::Instance->GetProjectionMartrix());
+	AnimatedSpriteShader->SetMat4("u_model", GetModel());
+
 	//Use Sprite Texture
 	AnimationSpriteSheet->SourceImage->Use();
 	//Render Sprite

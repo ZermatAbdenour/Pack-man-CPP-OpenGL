@@ -51,10 +51,10 @@
     <ClCompile Include="src\Levels\GameLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\Tansform.cpp">
+    <ClCompile Include="src\Engine\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Time.cpp">
+    <ClCompile Include="src\Entity\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

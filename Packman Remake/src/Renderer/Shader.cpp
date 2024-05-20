@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "../Util.h"
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const char* vertexShader, const char* fragmentShader)
 {
@@ -52,6 +53,25 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader)
 	glDeleteShader(vertexID);
 	glDeleteShader(fragmentID);
 }
+
+void Shader::SetInt(const char* name, int value)
+{
+	glUniform1i(glGetUniformLocation(ID, name), value);
+}
+
+void Shader::SetUnsignedInt(const char* name,unsigned int value)
+{
+	glUniform1ui(glGetUniformLocation(ID, name), value);
+}
+void Shader::SetFloat(const char* name, float value)
+{
+	glUniform1f(glGetUniformLocation(ID, name), value);
+}
+void Shader::SetMat4(const char* name, glm::mat4 value)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name),1,GL_FALSE,glm::value_ptr(value));
+}
+
 
 void Shader::Use()
 {

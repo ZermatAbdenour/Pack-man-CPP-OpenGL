@@ -15,14 +15,14 @@ public:
 
 	class Timer {
 	public:
-		Timer() : start_time_point(std::chrono::high_resolution_clock::now()) {}
-		Timer(double timeInSeconds) : start_time_point(std::chrono::high_resolution_clock::now()), m_timeInSeconds(timeInSeconds) {}
+		Timer() : m_startTime(std::chrono::high_resolution_clock::now()) {}
+		Timer(double timeInMS) : m_startTime(std::chrono::high_resolution_clock::now()), m_timeInMS(timeInMS) {}
 		void Reset();
 		double elapsed() const;
 		double elapsedSeconds() const;
 		bool IsEnded();
 	private:
-		std::chrono::time_point<std::chrono::high_resolution_clock> start_time_point;
-		double m_timeInSeconds;
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_startTime;
+		double m_timeInMS;
 	};
 };
